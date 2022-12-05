@@ -3,3 +3,6 @@ class City:
         self.name = name
         self.lat = lat
         self.lon = lon
+        self.timetable = []
+    def addTimetable(self, timetable):
+        self.timetable = timetable
