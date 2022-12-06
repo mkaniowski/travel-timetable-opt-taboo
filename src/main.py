@@ -50,8 +50,8 @@ class Optimize:
         for i in range(len(self.cities)):
             self.cities[i].addTimetable(data[i]['timetable'])
 
-    # calculate fitness of the solution
-    def fitness(self, sol):
+    # calculate cost of the solution
+    def getCost(self, sol):
         # sol -> [(t, type, city), (t, type, city), ...], where t is the time spent in city type (0, 1, 2) is the type of transport
         out = 0
         for i in range(len(sol)-1):
@@ -87,7 +87,7 @@ def main():
     ex = [(0, 0, 0), (5, 0, 2), (4, 0, 5),
           (2, 2, 3), (2, 2, 10), (4, 1, 1)]
 
-    print(opt.fitness(ex))
+    print(opt.getCost(ex))
 
 
 main()
