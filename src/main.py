@@ -1,3 +1,4 @@
+import math
 import os
 import json
 import numpy as np
@@ -51,13 +52,14 @@ class Optimize:
 
     # calculate fitness of the solution
     def fitness(self, sol):
-        # sol -> [(t, type, city, additionalTime), (t, type, city, additionalTime), ...], where t is the time spent for transport (full hours) to city and type (0, 1, 2) is the type of transport. Additional time is time needed to full hour + time spent in city
+        # sol -> [(t, type, city), (t, type, city), ...], where t is the time spent in city type (0, 1, 2) is the type of transport
         out = 0
         for i in range(len(sol)-1):
             if i == 0:
                 continue
-            deltaTime = sol[i-1][0] - sol[i][0]
-            out += deltaTime*self.vehicles[sol[i][1]].cost + sol[i][3]
+            travelTime = self.dists[sol[i-1][2]][sol[i][2]]/self.vehicles[sol[i][1]].vel
+            res = math.ceil(travelTime) - travelTime
+            out += travelTime*self.vehicles[sol[i][1]].cost + sol[i][0] + res
         return out
 
 
@@ -82,8 +84,8 @@ def main():
 
     opt.loadTimetable()
 
-    ex = [(0, 0, 'warsaw', 0), (5, 0, 'berlin', 4), (4, 0, 'prague', 5),
-          (2, 2, 'rome', 4), (2, 2, 'paris', 4), (4, 1, 'amsterdam', 3)]
+    ex = [(0, 0, 0), (5, 0, 2), (4, 0, 5),
+          (2, 2, 3), (2, 2, 10), (4, 1, 1)]
 
     print(opt.fitness(ex))
 
