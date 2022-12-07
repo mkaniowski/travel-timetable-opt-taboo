@@ -17,8 +17,9 @@ class Optimize:
         self.vehicles = []
 
     # add city object to the list of cities
-    def addCity(self, city):
-        self.cities.append(City(city['city'], city['lat'], city['lon']))
+    def addCity(self, city, timeSpent, desire):
+        self.cities.append(
+            City(city['city'], city['lat'], city['lon'], timeSpent, desire))
         self.names.append(city['city'])
 
     def addVehicle(self, vehicle):
@@ -52,14 +53,15 @@ class Optimize:
 
     # calculate cost of the solution
     def getCost(self, sol):
-        # sol -> [(t, type, city), (t, type, city), ...], where t is the time spent in city type (0, 1, 2) is the type of transport
+        # sol -> [(type, city), (type, city), ...], where t is the time spent in city type (0, 1, 2) is the type of transport
         out = 0
         for i in range(len(sol)-1):
             if i == 0:
                 continue
-            travelTime = self.dists[sol[i-1][2]][sol[i][2]]/self.vehicles[sol[i][1]].vel
+            travelTime = self.dists[sol[i-1][1]][sol[i]
+                                                 [1]]/self.vehicles[sol[i][0]].vel
             res = math.ceil(travelTime) - travelTime
-            out += travelTime*self.vehicles[sol[i][1]].cost + sol[i][0] + res
+            out += travelTime*self.vehicles[sol[i][0]].cost*(1/self.cities[sol[i][1]].desire) + self.cities[sol[i][1]].timeSpent + res
         return out
 
 
@@ -76,7 +78,8 @@ def main():
         data = json.load(f)
 
     for i in data:
-        opt.addCity(i)
+        opt.addCity(i, np.random.randint(low=2, high=13),
+                    np.random.randint(low=1, high=11))
 
     opt.calculateDist()
 
@@ -84,8 +87,8 @@ def main():
 
     opt.loadTimetable()
 
-    ex = [(0, 0, 0), (5, 0, 2), (4, 0, 5),
-          (2, 2, 3), (2, 2, 10), (4, 1, 1)]
+    ex = [(0, 0), (0, 2), (0, 5),
+          (2, 3), (2, 10), (1, 1)]
 
     print(opt.getCost(ex))
 

@@ -11,7 +11,7 @@ def randTimetable():
         data = json.load(f)
 
     for i in data:
-        cities.append(City(i['city'], i['lat'], i['lon']))
+        cities.append(City(i['city'], i['lat'], i['lon'], 0, 0))
 
     for i in range(len(cities)):
         city = {
