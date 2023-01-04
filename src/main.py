@@ -69,7 +69,7 @@ class Optimize:
         currTime = time
         visited = [start]
         curr = start
-        sol = [(0, start, 0)]
+        sol = [[0, start, self.cities[start].timeSpent]]
         addTime = 0
         while True:
             for c in range(len(self.cities[curr].timetable[0][currTime])):
@@ -77,12 +77,12 @@ class Optimize:
                     continue
 
                 while 1 not in self.cities[curr].timetable[0][currTime][c]:
-                        addTime += 1
-                        currTime += 1
+                    addTime += 1
+                    currTime += 1
 
                 for t in range(len(self.cities[curr].timetable[0][currTime][c])):
                     if self.cities[curr].timetable[0][currTime][c][t] == 1:
-                        mov = (t, c, addTime + self.cities[curr].timeSpent)
+                        mov = [t, c, addTime + self.cities[curr].timeSpent]
                         sol.append(mov)
                         visited.append(c)
                         curr = c
@@ -98,21 +98,72 @@ class Optimize:
 
                 for t in range(len(self.cities[curr].timetable[0][currTime][end])):
                     if self.cities[curr].timetable[0][currTime][end][t] == 1:
-                        mov = (t, end, addTime + self.cities[curr].timeSpent)
+                        mov = [t, end, addTime + self.cities[curr].timeSpent]
                         sol.append(mov)
                         visited.append(end)
                         curr = c
                         addTime = 0
                         break
-                
+
                 break
         return sol
 
-    def getNeighborhood(self, sol):  # !!!IMPLEMENT ME!!!
-        return None
+    def getNeighborhood(self, sol):
+        n1 = np.random.randint(low=1, high=len(sol))
+        n2 = np.random.randint(low=1, high=len(sol))
+        while n1 == n2:
+            n2 = np.random.randint(low=1, high=len(sol))
 
-    def opt(self, maxCost: int, maxTabuLen: int, aspiration: int, Nmax: int):
-        sol = self.getInitSol()
+        sol[n1], sol[n2] = sol[n2], sol[n1]
+
+        return sol
+
+    def correctNeighborhood(self, sol, time):
+        currTime = time
+        for i in range(len(sol)):
+            sol[i][2] = self.cities[sol[i][1]].timeSpent
+
+        for i in range(len(sol)-1):
+            if i == 0:
+                continue
+            addTime = 0
+            while 1 not in self.cities[sol[i][1]].timetable[0][currTime][sol[i+1][1]]:
+                addTime += 1
+                currTime += 1
+                if currTime > 23:
+                    currTime = 0
+            sol[i][2] += addTime
+            busCost = np.inf
+            trainCost = np.inf
+            planeCost = np.inf
+            for l in range(3):
+                if self.cities[sol[i][1]].timetable[0][currTime][sol[i+1][1]][l] == 1:
+                    if l == 0:
+                        travelTime = self.dists[sol[i][1]
+                                                ][sol[i+1][1]]/self.vehicles[l].vel
+                        busCost = travelTime * \
+                            self.vehicles[sol[i][0]].cost * \
+                            (1/self.cities[sol[i][1]].desire)
+                    if l == 1:
+                        travelTime = self.dists[sol[i][1]
+                                                ][sol[i+1][1]]/self.vehicles[l].vel
+                        trainCost = travelTime * \
+                            self.vehicles[sol[i][0]].cost * \
+                            (1/self.cities[sol[i][1]].desire)
+                    if l == 2:
+                        travelTime = self.dists[sol[i][1]
+                                                ][sol[i+1][1]]/self.vehicles[l].vel
+                        planeCost = travelTime * \
+                            self.vehicles[sol[i][0]].cost * \
+                            (1/self.cities[sol[i][1]].desire)
+
+            bestVeh = np.argmin([busCost, trainCost, planeCost])
+            sol[i][0] = bestVeh
+
+        return sol
+
+    def opt(self, maxCost: int, maxTabuLen: int, aspiration: int, Nmax: int, time: int):
+        sol = self.getInitSol(2, 6, time)
         bestSol = sol
         bestSolCost = self.getCost(bestSol)
         tabuList = [sol]
@@ -120,7 +171,7 @@ class Optimize:
         noImprovement = 0
         while ((it <= Nmax) and (bestSolCost <= maxCost)):
             it += 1
-            newSol = self.getNeighborhood(sol)
+            newSol = self.correctNeighborhood(self.getNeighborhood(sol), time)
             if newSol not in tabuList:
                 noImprovement += 1
                 newSolCost = self.getCost(newSol)
@@ -145,6 +196,7 @@ class Optimize:
                         tabuList.pop(idx)
                 else:
                     sol = newSol
+        return self.getCost(sol), sol
 
 
 def main():
@@ -178,9 +230,13 @@ def main():
     ex = [(0, 0, 0), (0, 2, 1), (0, 5, 3),
           (2, 3, 2), (2, 10, 0), (1, 1, 0)]
 
-    print(opt.getCost(ex))
+    # print(opt.getCost(ex))
     # print(opt.cities[0].timetable[0][5])
-    print(opt.getInitSol(3, 10, 5))
+    # print(opt.getInitSol(3, 10, 5))
+    # s = opt.getInitSol(3, 10, 5)
+    # print(opt.getNeighborhood(s))
+    # print(opt.correctNeighborhood(opt.getNeighborhood(s), 5))
+    print(opt.opt(100, 5, 3, 1000, 3))
 
 
 main()
