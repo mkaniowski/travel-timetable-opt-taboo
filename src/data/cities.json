@@ -2,61 +2,148 @@
     {
         "city": "warsaw",
         "lat": 52.24135473850054,
-        "lon": 21.013604834572803
+        "lon": 21.013604834572803,
+        "timeSpent": 4,
+        "desire": 3
     },
     {
         "city": "berlin",
         "lat": 52.51012367563036,
-        "lon": 13.396616670282844
+        "lon": 13.396616670282844,
+        "timeSpent": 2,
+        "desire": 2
     },
     {
         "city": "prague",
         "lat": 50.06810358263669,
-        "lon": 14.437091642732609
+        "lon": 14.437091642732609,
+        "timeSpent": 7,
+        "desire": 6
     },
     {
         "city": "vienna",
         "lat": 48.19829694361144,
-        "lon": 16.369907774408155
+        "lon": 16.369907774408155,
+        "timeSpent": 8,
+        "desire": 5
     },
     {
         "city": "paris",
         "lat": 48.85145044152983,
-        "lon": 2.352575367503323
+        "lon": 2.352575367503323,
+        "timeSpent": 10,
+        "desire": 6
     },
     {
         "city": "london",
         "lat": 51.5038824058812,
-        "lon": -0.12717134513428272
+        "lon": -0.12717134513428272,
+        "timeSpent": 9,
+        "desire": 9
     },
     {
         "city": "brussels",
         "lat": 50.84255932362231,
-        "lon": 4.355026573565084
+        "lon": 4.355026573565084,
+        "timeSpent": 4,
+        "desire": 2
     },
     {
         "city": "amsterdam",
         "lat": 52.362041910082766,
-        "lon": 4.901796128351154
+        "lon": 4.901796128351154,
+        "timeSpent": 8,
+        "desire": 10
     },
     {
         "city": "bern",
         "lat": 46.94477855544464,
-        "lon": 7.445433976198274
+        "lon": 7.445433976198274,
+        "timeSpent": 2,
+        "desire": 3
     },
     {
         "city": "rome",
         "lat": 41.89439701522671,
-        "lon": 12.483940768486391
+        "lon": 12.483940768486391,
+        "timeSpent": 12,
+        "desire": 8
     },
     {
         "city": "luxemburg",
         "lat": 49.610701716162666,
-        "lon": 6.130233688122389
+        "lon": 6.130233688122389,
+        "timeSpent": 3,
+        "desire": 6
     },
     {
         "city": "madrid",
         "lat": 40.41344424088074,
-        "lon": -3.6996246356558804
+        "lon": -3.6996246356558804,
+        "timeSpent": 6,
+        "desire": 7
+    },
+    {
+        "city": "lisbona",
+        "lat": 38.718820,
+        "lon": -9.138251,
+        "timeSpent": 6,
+        "desire": 4
+    },
+    {
+        "city": "budapest",
+        "lat": 47.486363,
+        "lon": 19.040992,
+        "timeSpent": 4,
+        "desire": 4
+    },
+    {
+        "city": "copenhaga",
+        "lat": 55.680623,
+        "lon": 12.567544,
+        "timeSpent": 3,
+        "desire": 3
+    },
+    {
+        "city": "stockholm",
+        "lat": 59.323966,
+        "lon": 18.071601,
+        "timeSpent": 4,
+        "desire": 5
+    },
+    {
+        "city": "oslo",
+        "lat": 59.912645,
+        "lon": 10.752168,
+        "timeSpent": 6,
+        "desire": 7
+    },
+    {
+        "city": "helsinki",
+        "lat": 40.41344424088074,
+        "lon": -3.6996246356558804,
+        "timeSpent": 4,
+        "desire": 7
+    },
+    {
+        "city": "bratislava",
+        "lat": 48.141653,
+        "lon": 17.109982,
+        "timeSpent": 2,
+        "desire": 3
+    },
+    {
+        "city": "zagreb",
+        "lat": 45.805612,
+        "lon": 15.978977,
+        "timeSpent": 4,
+        "desire": 5
+    },
+    {
+        "city": "lublana",
+        "lat": 46.052754,
+        "lon": 14.504753,
+        "timeSpent": 4,
+        "desire": 3
     }
 ]
