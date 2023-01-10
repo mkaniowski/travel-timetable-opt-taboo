@@ -1,0 +1,9 @@
+{
+    "aspiration": "4",
+    "end": "7",
+    "maxCost": "300",
+    "maxTabooLen": "5",
+    "nmax": "25000",
+    "start": "0",
+    "time": "1"
+}
