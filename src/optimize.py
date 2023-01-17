@@ -173,18 +173,22 @@ class Optimize:
         it2 = 0
         noImprovement = 0
         costs = []
+        bestCosts = []
+        bestCostsCords = []
         while ((it <= Nmax) and (bestSolCost <= maxCost)):
             it += 1
             newSol = self.correctNeighborhood(self.getNeighborhood(sol), time)
             if tabuList.count(newSol) == 0: # if tabuList.count(newSol) == 0
                 noImprovement += 1
                 newSolCost = self.getCost(newSol)
+                costs.append(newSolCost)
                 it1 +=1
                 if newSolCost < bestSolCost:
                     noImprovement = 0
                     bestSol = newSol
                     bestSolCost = newSolCost
-                    costs.append(bestSolCost)
+                    bestCosts.append(bestSolCost)
+                    bestCostsCords.append(it)
                     it2 +=1
                 tabuList.append(newSol)
                 if len(tabuList) >= maxTabuLen:
@@ -203,7 +207,7 @@ class Optimize:
                         tabuList.pop(idx)
                 else:
                     sol = newSol
-        return self.getCost(bestSol), it, bestSol, costs, it1, it2
+        return self.getCost(bestSol), it, bestSol, bestCosts, it1, it2, costs, bestCostsCords
 
 
 def main():
