@@ -198,13 +198,13 @@ class Optimize:
                 if noImprovement >= aspiration:
                     aspiredSolCost = self.getCost(tabuList[0])
                     idx = 0
-                    for i in range(len(tabuList)-2):
+                    for i in range(1, len(tabuList)-2):
                         currCost = self.getCost(tabuList[i])
                         if (currCost < aspiredSolCost) and (tabuList[i] != bestSol) and (tabuList[i] != sol):
                             aspiredSolCost = currCost
                             idx = i
-                        sol = tabuList[idx]
-                        tabuList.pop(idx)
+                    sol = tabuList[idx]
+                    tabuList.pop(idx)
                 else:
                     sol = newSol
         return self.getCost(bestSol), it, bestSol, bestCosts, it1, it2, costs, bestCostsCords

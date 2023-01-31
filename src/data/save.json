@@ -2,7 +2,7 @@
     "aspiration": "4",
     "end": "7",
     "maxCost": "300",
-    "maxTabooLen": "5",
+    "maxTabooLen": "10",
     "nmax": "5000",
     "start": "0",
     "time": "1"
